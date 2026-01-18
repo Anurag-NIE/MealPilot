@@ -61,10 +61,10 @@ At a glance:
 
 ```mermaid
 flowchart LR
-  U[User - Browser] -->|React UI| W[mealpilot-web - Vite + React]
-  W -->|HTTP / JSON| A[mealpilot-api - Spring Boot WebFlux]
-  A -->|Reactive MongoDB| M[(MongoDB)]
-  A -->|OpenAPI| S[Swagger /api-docs]
+  User[User] --> Web[mealpilot-web: React UI]
+  Web --> Api[mealpilot-api: Spring Boot WebFlux]
+  Api --> Db[MongoDB]
+  Api --> Docs[OpenAPI and Swagger]
 ```
 
 Main components:
@@ -78,35 +78,12 @@ Main components:
 Typical user journey:
 
 ```mermaid
-sequenceDiagram
-  participant User
-  participant Web as "mealpilot-web"
-  participant API as "mealpilot-api"
-  participant DB as MongoDB
-
-  User->>Web: Register/Login
-  Web->>API: POST /api/auth/register (public)
-  Web->>API: POST /api/auth/login (public)
-  API->>DB: Create user / validate credentials
-  API-->>Web: JWT accessToken
-
-  User->>Web: Create Items
-  Web->>API: POST /api/items (JWT)
-  API->>DB: Save items
-
-  User->>Web: Decide (budget/query/tags)
-  Web->>API: POST /api/decide (JWT)
-  API->>DB: Read items/preferences + compute ranking
-  API-->>Web: Ranked suggestions + decisionId
-
-  User->>Web: Give feedback
-  Web->>API: POST /api/decisions/{id}/feedback (JWT)
-  API->>DB: Store feedback
-
-  User->>Web: View history
-  Web->>API: GET /api/decisions (JWT)
-  API->>DB: Fetch decisions (cursor pagination)
-  API-->>Web: Decisions + X-Next-Cursor
+flowchart TD
+  L[Register or Login] --> T[JWT access token]
+  T --> I[Create Items]
+  I --> D[Decide: ranked suggestions]
+  D --> F[Give feedback]
+  F --> H[View history]
 ```
 
 ## STAR method explanation (project summary)
