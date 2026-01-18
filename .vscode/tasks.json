@@ -1,0 +1,95 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "mealpilot-api: test (mvnw.ps1)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "mealpilot-api/mvnw.ps1",
+        "test"
+      ],
+      "isBackground": false,
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "mealpilot-api: start (run-dev.ps1, auto port from 9000)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "mealpilot-api/run-dev.ps1",
+        "-PreferredPort",
+        "9000",
+        "-AutoPort"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "clear": true
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "mealpilot-api: start (spring-boot:run, port 9000)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "mealpilot-api/mvnw.ps1",
+        "spring-boot:run",
+        "-Dspring-boot.run.arguments=--server.port=9000"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "mealpilot-web: dev",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "dev", "--", "--host", "127.0.0.1"],
+      "options": {
+        "cwd": "mealpilot-web"
+      },
+      "presentation": {
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "clear": true
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "mealpilot-web: build",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build"],
+      "options": {
+        "cwd": "mealpilot-web"
+      },
+      "isBackground": false,
+      "problemMatcher": []
+    },
+    {
+      "label": "api:gen",
+      "type": "shell",
+      "command": "npm",
+      "args": ["--prefix", "mealpilot-web", "run", "api:gen"],
+      "isBackground": false
+    }
+  ]
+}
