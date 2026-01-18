@@ -61,8 +61,8 @@ At a glance:
 
 ```mermaid
 flowchart LR
-  U[User (Browser)] -->|React UI| W[mealpilot-web (Vite + React)]
-  W -->|HTTP / JSON| A[mealpilot-api (Spring Boot WebFlux)]
+  U[User - Browser] -->|React UI| W[mealpilot-web - Vite + React]
+  W -->|HTTP / JSON| A[mealpilot-api - Spring Boot WebFlux]
   A -->|Reactive MongoDB| M[(MongoDB)]
   A -->|OpenAPI| S[Swagger /api-docs]
 ```
@@ -80,8 +80,8 @@ Typical user journey:
 ```mermaid
 sequenceDiagram
   participant User
-  participant Web as mealpilot-web
-  participant API as mealpilot-api
+  participant Web as "mealpilot-web"
+  participant API as "mealpilot-api"
   participant DB as MongoDB
 
   User->>Web: Register/Login
